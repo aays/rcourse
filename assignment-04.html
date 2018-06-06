@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Assignment 4: One-dimensional population models (8 marks)</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link rel="icon" type="image/png" href="image/favicon.png">
+<style type="text/css">
+
+table {
+    border-collapse: collapse;
+}
+
+thead {
+    border-top: solid #DCDCDC;
+    border-bottom: solid #DCDCDC;
+}
+
+tr.odd {
+    background-color: #F8F8F8;
+}
+
+tr:last-child {
+    border-bottom: solid #DCDCDC;
+}
+
+</style>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">EEB430H1</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-map-o"></span>
+     
+    Syllabus
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-book"></span>
+     
+    Lectures
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lec01-introduction.html">Sept. 7: Intro to course, programming, RStudio, and R Markdown</a>
+    </li>
+    <li>
+      <a href="lec02-basic-r.html">Sept. 12: Variable assignment, vectors, functions</a>
+    </li>
+    <li>
+      <a href="lec03-basic-r.html">Sept. 14: Data frames, intro to dplyr</a>
+    </li>
+    <li>
+      <a href="lec04-dplyr.html">Sept. 19: Data wrangling in dplyr, tidy data</a>
+    </li>
+    <li>
+      <a href="lec05-dplyr.html">Sept. 21: More dplyr and tidy data, ggplot intro</a>
+    </li>
+    <li>
+      <a href="lec06-pop-models.html">Sept. 26: Qualitative review of population models</a>
+    </li>
+    <li>
+      <a href="lec07-pop-models.html">Sept. 28: Modelling in R</a>
+    </li>
+    <li>
+      <a href="lec08-stability.html">Oct. 03: Population models in two dimensions</a>
+    </li>
+    <li>
+      <a href="lec09-modeling-r.html">Oct. 05: Fixed points, null clines, and stability</a>
+    </li>
+    <li>
+      <a href="lec10-modelling.html">Oct. 10: Fitting models to data</a>
+    </li>
+    <li>
+      <a href="lec11-modelling.html">Oct. 12: Statistical and probabilistic modelling in R</a>
+    </li>
+    <li>
+      <a href="lec12-datasets.html">Oct. 17: Scientific method, team dynamics, and project datasets</a>
+    </li>
+    <li>
+      <a href="lec13-projects-r.html">Oct. 19: Project and Git in RStudio, and project work</a>
+    </li>
+    <li>
+      <a href="lec14-git.html">Oct. 24: Scientific collaboration, Git and GitHub</a>
+    </li>
+    <li>
+      <a href="lec15-data-viz.html">Oct. 26: Data visualization and project work</a>
+    </li>
+    <li>
+      <a href="lec16-data-viz.html">Oct. 31: Project work, data visualizations</a>
+    </li>
+    <li>
+      <a href="lec17-rmarkdown.html">Nov. 02: Reproducible workflow, Metadata, and R Markdown</a>
+    </li>
+    <li class="dropdown-header">Nov. 14: Project work (no lesson)</li>
+    <li class="dropdown-header">Nov. 16: Project work (no lesson)</li>
+    <li>
+      <a href="lec20-publishing.html">Nov. 21: Preparing a scientific item for academic publishing</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-book"></span>
+     
+    Assignments
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="assignment-01.html">Assignment 1</a>
+    </li>
+    <li>
+      <a href="assignment-02.html">Assignment 2</a>
+    </li>
+    <li>
+      <a href="assignment-03.html">Assignment 3</a>
+    </li>
+    <li>
+      <a href="assignment-04.html">Assignment 4</a>
+    </li>
+    <li>
+      <a href="assignment-05.html">Assignment 5</a>
+    </li>
+    <li>
+      <a href="assignment-06.html">Assignment 6</a>
+    </li>
+    <li>
+      <a href="assignment-07.html">Assignment 7</a>
+    </li>
+    <li>
+      <a href="assignment-08.html">Assignment 8</a>
+    </li>
+    <li>
+      <a href="assignment-final.html">Final assignment</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-caret-square-o-right"></span>
+     
+    Slides
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="slides/lec12-datasets.html">Oct. 17: Scientific method, team dynamics, and project datasets</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="resources.html">
+    <span class="fa fa-question"></span>
+     
+    Resources and FAQ
+  </a>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fa fa-info"></span>
+     
+    About
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-bars"></span>
+     
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="mailto:joel.ostblom@mail.utoronto.ca">
+        <span class="fa fa-envelope"></span>
+         
+        Contact
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/uoftcoders/rcourse">
+        <span class="fa fa-github"></span>
+         
+        GitHub
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Assignment 4: One-dimensional population models (8 marks)</h1>
+
+</div>
+
+
+<p><em>To submit this assignment, upload the full document on blackboard, including the original questions, your code, and the output. Submit both your <code>.Rmd</code> source file and a knitted <code>.html</code> version of the same file.</em></p>
+<p><em>For questions that ask you to plot something by hand, indicate which assignment and question the plot is for and either include a photo or scan of it in the markdown document or hand in the hard copy.</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Qualitatively analyzing a one-dimensional model (2 marks)</p>
+<p>Consider the differential equation <span class="math inline">\(\frac{dx}{dt} = x(1-x)\)</span>.</p></li>
+</ol>
+<!-- -->
+<ol style="list-style-type: lower-alpha">
+<li><p>Use R to plot <span class="math inline">\(\frac{dx}{dt}\)</span> vs. <span class="math inline">\(x\)</span> for <span class="math inline">\(-1 \le x \le 2\)</span>. (0.5 marks)</p></li>
+<li><p>Sketch a one-dimensional phase portrait on paper. Mark the direction of the derivative in each region with arrows and label the fixed points as “stable” or “unstable”. (0.5 marks)</p></li>
+<li><p>Qualitatively graph <span class="math inline">\(x\)</span> vs. <span class="math inline">\(t\)</span> for the following three initial conditions: <span class="math inline">\(x_0 = -0.5\)</span>, <span class="math inline">\(x_0 = 0.5\)</span>, and <span class="math inline">\(x_0 = 1.5\)</span>. What happens as <span class="math inline">\(t\)</span> becomes large in each case? (1 mark)</p></li>
+</ol>
+<!-- -->
+<ol start="2" style="list-style-type: decimal">
+<li><p>The Allee Effect (3 marks)</p>
+<p>Generally, as population size increases, a population will experience a decreased growth rate due to greater competition for resources. This is a negative density-dependent growth rate, and one example of this is the logistic model.</p>
+<p>The Allee effect introduces positive density dependence, where increases in population size result in increased growth rates over a certain range of population sizes. The Allee effect can be incorporated into the logistic growth equation as follows:</p>
+<p><span class="math display">\[\frac{dN}{dt} = rN\left(1-\frac{N}{K}\right)\left(\frac{N-A}{K}\right)\]</span></p>
+<p>Here <span class="math inline">\(r\)</span> represents the growth rate of the population, <span class="math inline">\(K\)</span> is the carrying capacity, and <span class="math inline">\(A\)</span> is the critical size above which the total growth rate is positive.</p></li>
+</ol>
+<!-- -->
+<ol style="list-style-type: lower-alpha">
+<li><p>Take <span class="math inline">\(r=1\)</span>, <span class="math inline">\(A=10\)</span>, and <span class="math inline">\(K=50\)</span>. Use R to plot <span class="math inline">\(\frac{dN}{dt}\)</span> vs. <span class="math inline">\(N\)</span> for <span class="math inline">\(0 \le N \le 55\)</span>. For which values of <span class="math inline">\(N\)</span> is the growth rate (<span class="math inline">\(\frac{dN}{dt}\)</span>) positive or negative? (0.5 marks)</p></li>
+<li><p>Sketch a one-dimensional phase portrait on paper, leaving <span class="math inline">\(A\)</span> and <span class="math inline">\(K\)</span> as variables (i.e. without choosing values for <span class="math inline">\(A\)</span> and <span class="math inline">\(K\)</span>, but with <span class="math inline">\(0 \le A &lt; K\)</span>). Mark the direction of the derivative in each region with arrows and label the fixed points as “stable” or “unstable”. (1 mark)</p></li>
+<li><p>Use R to plot the <strong>per capita</strong> growth rate (<span class="math inline">\(\frac{1}{N}\frac{dN}{dt}\)</span>) vs. <span class="math inline">\(N\)</span> for this model of the Allee effect and for the logistic growth model: <span class="math inline">\(\frac{dN}{dt} = rN(1-\frac{N}{K})\)</span>.</p>
+<ul>
+<li><p>What do you notice about the density (<span class="math inline">\(N\)</span>) dependence of the per capita growth rate in each case? Hint: in the logistic model, the growth rate <strong>per capita</strong> (per organism) decreases in a straight line as <span class="math inline">\(N\)</span> increases.</p></li>
+<li><p>What happens to the Allee effect as <span class="math inline">\(A\)</span> decreases? Plot curves for <span class="math inline">\(A=0\)</span> and a few values of <span class="math inline">\(A&gt;0\)</span>.</p>
+<p>The parameter <span class="math inline">\(A\)</span> controls the strength of the Allee effect: for <span class="math inline">\(A &gt; 0\)</span>, the Allee effect is said to be strong, and for <span class="math inline">\(A=0\)</span>, the Allee effect is weak.</p></li>
+<li><p>What will happen to a population experiencing a strong Allee effect if the population size falls below <span class="math inline">\(A\)</span>? What will happen to a population experience a weak Allee effect if the population size falls below <span class="math inline">\(A\)</span>? (1 mark)</p></li>
+</ul></li>
+<li><p>Describe two biological situations in which you might expect to see an Allee effect (either weak or strong). (0.5 marks)</p></li>
+</ol>
+<!-- -->
+<ol start="3" style="list-style-type: decimal">
+<li><p>Analyzing a two-dimensional model (3 marks)</p>
+<p>Consider the Lotka-Volterra predator-prey model:</p>
+<p><span class="math display">\[\frac{dx}{dt} = x - \alpha y x\]</span></p>
+<p><span class="math display">\[\frac{dy}{dt} = \beta y x - \delta y\]</span></p>
+<p>where <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are the prey and predator population sizes, respectively. <span class="math inline">\(\alpha\)</span> is the rate at which prey are killed by predators, <span class="math inline">\(\beta\)</span> is the rate at which predators grow by consuming prey, and <span class="math inline">\(\delta\)</span> is the death rate of predators.</p></li>
+</ol>
+<!-- -->
+<ol style="list-style-type: lower-alpha">
+<li><p>Numerically solve this system using the <code>ode</code> function from the <code>deSolve</code> package. Use the parameters <span class="math inline">\(\alpha = 0.6\)</span>, <span class="math inline">\(\beta = 0.9\)</span>, and <span class="math inline">\(\delta = 0.5\)</span>. Choose <span class="math inline">\(x_0 = y_0 = 0.5\)</span> as the inital state for the system. Choose a range for time that shows the behaviour of the system. On the same axes, plot <span class="math inline">\(x\)</span> vs. <span class="math inline">\(t\)</span> and <span class="math inline">\(y\)</span> vs. <span class="math inline">\(t\)</span>. Label <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> and the axes. (1 mark)</p></li>
+<li><p>Numerically solve the system again, but this time use a very specific starting point: choose <span class="math inline">\(x_0 = \delta / \beta\)</span>, and <span class="math inline">\(y_0 = 1/\alpha\)</span>.</p>
+<ul>
+<li>Again plot your result: <span class="math inline">\(x(t)\)</span> and <span class="math inline">\(y(t)\)</span> on the same axes. What’s different? (1 mark)</li>
+<li>The point <span class="math inline">\(x_0 = \delta / \beta\)</span>, <span class="math inline">\(y_0 = 1/\alpha\)</span> is a fixed point. Is it stable, unstable, or something else altogether? Justify your answer by referring to the two plots you made. (1 mark)</li>
+</ul></li>
+</ol>
+
+
+<hr>
+
+<p>This work is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. See the <a href="LICENSE.html">licensing</a> page for more details about copyright information.</p>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
